@@ -472,7 +472,7 @@
       formPage.classList.add('loading');
       
       try {
-        const response = await fetch('https://dhsyccqor.datadex.vn/webhook-test/revenue', {
+        const response = await fetch('https://dhsyccqor.datadex.vn/webhook/revenue', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
