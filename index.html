@@ -1,277 +1,498 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tool Đăng Bài Dịch Vụ</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 30px;
-            text-align: center;
-            font-size: 28px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        select, input[type="text"], textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        select:focus, input[type="text"]:focus, textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 12px;
-            margin-top: 30px;
-        }
-
-        button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-submit:active {
-            transform: translateY(0);
-        }
-
-        .btn-reset {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .btn-reset:hover {
-            background: #e0e0e0;
-        }
-
-        .message {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-            font-weight: 500;
-        }
-
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            display: block;
-        }
-
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            display: block;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            color: #667eea;
-        }
-
-        .loading.show {
-            display: block;
-        }
-
-        .spinner {
-            border: 4px solid #f0f0f0;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEGA Korea - Nhập liệu doanh thu</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --error: #ef4444;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      padding: 32px;
+    }
+    
+    .logo {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    
+    .logo h1 {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .logo p {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      transition: all 0.2s;
+      background: var(--card);
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    textarea { resize: vertical; min-height: 80px; }
+    
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+    }
+    
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4); }
+    .btn-primary:active { transform: translateY(0); }
+    
+    .btn-logout {
+      background: transparent;
+      color: var(--text-light);
+      border: 1.5px solid var(--border);
+      margin-top: 12px;
+    }
+    
+    .btn-logout:hover { background: var(--bg); }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .branch-badge {
+      background: linear-gradient(135deg, var(--primary), #ec4899);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 24px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      padding: 14px 24px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 500;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    .toast.success { background: var(--success); }
+    .toast.error { background: var(--error); }
+    
+    .hidden { display: none !important; }
+    
+    .loading { pointer-events: none; opacity: 0.7; }
+    .loading .btn-primary::after {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid transparent;
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    
+    @keyframes spin { to { transform: rotate(360deg); } }
+    
+    .error-msg {
+      color: var(--error);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📝 Tool Đăng Bài</h1>
-        
-        <div id="message" class="message"></div>
-        <div id="loading" class="loading">
-            <div class="spinner"></div>
-            <p>Đang gửi dữ liệu...</p>
+  <div class="container">
+    <!-- Login Page -->
+    <div id="loginPage" class="card">
+      <div class="logo">
+        <h1>MEGA Korea</h1>
+        <p>Hệ thống nhập liệu doanh thu</p>
+      </div>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="email@megakorea.vn" required>
         </div>
-
-        <form id="postForm">
-            <div class="form-group">
-                <label for="service">🏥 Chọn Dịch Vụ</label>
-                <select id="service" name="service" required>
-                    <option value="">-- Vui lòng chọn dịch vụ --</option>
-                    <option value="Hôi nách">Hôi nách</option>
-                    <option value="Giảm béo">Giảm béo</option>
-                    <option value="Nám">Nám</option>
-                    <option value="Mày">Mày</option>
-                    <option value="Môi">Môi</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="content">✍️ Nội Dung Bài Viết</label>
-                <textarea id="content" name="content" placeholder="Nhập nội dung bài viết của bạn..." required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="media">🖼️ URL Ảnh</label>
-                <input type="text" id="media" name="media" placeholder="Nhập link URL ảnh (vd: https://example.com/image.jpg)" required>
-            </div>
-
-            <div class="button-group">
-                <button type="submit" class="btn-submit">📤 Đăng Bài</button>
-                <button type="reset" class="btn-reset">🔄 Xóa</button>
-            </div>
-        </form>
+        
+        <div class="form-group">
+          <label>Mật khẩu</label>
+          <input type="password" id="password" placeholder="Nhập mật khẩu" required>
+        </div>
+        
+        <div id="loginError" class="error-msg hidden"></div>
+        
+        <button type="submit" class="btn btn-primary" style="margin-top: 8px;">Đăng nhập</button>
+      </form>
     </div>
-
-    <script>
-        const form = document.getElementById('postForm');
-        const messageDiv = document.getElementById('message');
-        const loadingDiv = document.getElementById('loading');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const content = document.getElementById('content').value.trim();
-            const media = document.getElementById('media').value.trim();
-            const services = document.getElementById('service').value;
-
-            if (!content || !media || !services) {
-                showMessage('Vui lòng điền đầy đủ tất cả các trường', 'error');
-                return;
-            }
-
-            // Kiểm tra URL hợp lệ
-            if (!isValidUrl(media)) {
-                showMessage('URL ảnh không hợp lệ', 'error');
-                return;
-            }
-
-            const payload = {
-                content: content,
-                media: media,
-                services: services
-            };
-
-            loadingDiv.classList.add('show');
-            messageDiv.style.display = 'none';
-
-            try {
-                const response = await fetch('https://dhsyccqor.datadex.vn/webhook/auto-update-post', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    showMessage('✅ Đăng bài thành công!', 'success');
-                    form.reset();
-                } else {
-                    showMessage(`❌ Lỗi: ${response.status} ${response.statusText}`, 'error');
-                }
-            } catch (error) {
-                showMessage(`❌ Lỗi: ${error.message}`, 'error');
-            } finally {
-                loadingDiv.classList.remove('show');
-            }
+    
+    <!-- Form Page -->
+    <div id="formPage" class="card hidden">
+      <div class="header">
+        <div class="logo" style="margin: 0; text-align: left;">
+          <h1 style="font-size: 20px;">Nhập liệu</h1>
+        </div>
+        <span class="branch-badge" id="branchBadge">BMT</span>
+      </div>
+      
+      <form id="dataForm">
+        <div class="section-title">Phân loại</div>
+        
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Phân loại khách</label>
+            <select id="customerType" required>
+              <option value="">Chọn...</option>
+              <option value="KHÁCH MỚI">Khách mới</option>
+              <option value="KHÁCH CŨ">Khách cũ</option>
+              <option value="KHÁCH MỚI CÔNG NỢ">Khách mới công nợ</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Nhân viên nguồn</label>
+            <select id="source" required>
+              <option value="">Chọn...</option>
+              <option value="GIỚI THIỆU">Giới thiệu</option>
+              <option value="VÃNG LAI">Vãng lai</option>
+              <option value="FB ADS">FB Ads</option>
+              <option value="NHÂN VIÊN">Nhân viên</option>
+              <option value="CHI NHÁNH">Chi nhánh</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Ngày</label>
+          <input type="text" id="date" placeholder="DD/MM/YYYY" required>
+        </div>
+        
+        <div class="section-title">Thông tin khách hàng</div>
+        
+        <div class="form-group">
+          <label>Tên khách hàng</label>
+          <input type="text" id="customerName" placeholder="Nhập tên khách hàng" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Số điện thoại</label>
+          <input type="tel" id="phone" placeholder="0xxx xxx xxx" required>
+        </div>
+        
+        <div class="section-title">Dịch vụ</div>
+        
+        <div class="form-group">
+          <label>Nhóm dịch vụ</label>
+          <select id="serviceGroup" required>
+            <option value="">Chọn nhóm dịch vụ...</option>
+            <option>MAY</option><option>HIFU</option><option>LASER</option><option>RÔ</option>
+            <option>NÁM</option><option>MÔI</option><option>MÍ</option><option>IPL</option>
+            <option>GB</option><option>TÓC</option><option>TL</option><option>PRP</option>
+            <option>CHS</option><option>NM</option><option>CSD</option><option>CT</option>
+            <option>SEO</option><option>DNA</option><option>XX</option><option>NH</option>
+            <option>HV</option><option>VOUCHER</option><option>TRT</option><option>KHÁC</option>
+            <option>MB</option><option>MỤN</option><option>XN</option><option>FILLER</option>
+            <option>MP10</option><option>MP</option><option>TĂNG HN</option><option>MI</option>
+            <option>RẠN</option><option>LH</option><option>TT</option><option>MS</option>
+            <option>THẺ</option><option>CMI</option><option>NC</option><option>HÀNG HÓA</option>
+            <option>DỊCH VỤ BÁN RA</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Hàng hóa dịch vụ bán ra</label>
+          <input type="text" id="serviceDetail" placeholder="Chi tiết dịch vụ">
+        </div>
+        
+        <div class="section-title">Thông tin giao dịch</div>
+        
+        <div class="form-group">
+          <label>Ghi chú</label>
+          <input type="text" id="note" placeholder="Ghi chú thêm...">
+        </div>
+        
+        <div class="form-group">
+          <label>Quà tặng</label>
+          <input type="text" id="gift" placeholder="Quà tặng (nếu có)">
+        </div>
+        
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Số buổi</label>
+            <input type="text" id="sessions" placeholder="Nhập số buổi">
+          </div>
+          <div class="form-group">
+            <label>Số lượng</label>
+            <input type="text" id="quantity" placeholder="Nhập số lượng">
+          </div>
+        </div>
+        
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Tổng bill</label>
+            <input type="text" id="totalBill" placeholder="Nhập tổng bill">
+          </div>
+          <div class="form-group">
+            <label>Chuyển khoản</label>
+            <input type="text" id="transfer" placeholder="Nhập số tiền CK">
+          </div>
+        </div>
+        
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Cà thẻ</label>
+            <input type="text" id="card" placeholder="Nhập số tiền cà thẻ">
+          </div>
+          <div class="form-group">
+            <label>Còn nợ</label>
+            <input type="text" id="debt" placeholder="Nhập số tiền nợ">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Tổng thu</label>
+          <input type="text" id="totalReceived" placeholder="Nhập tổng thu">
+        </div>
+        
+        <div class="section-title">Nhân viên phụ trách</div>
+        
+        <div class="form-group">
+          <label>Tên nhân viên</label>
+          <select id="staff" required>
+            <option value="">Chọn nhân viên...</option>
+            <option>BS PHƯỢNG</option><option>THU QL</option><option>BÍCH PHƯỢNG BS</option>
+            <option>LỘC KTV</option><option>OANH KTV</option><option>KIM ANH KTV</option>
+            <option>ANH THƯ KTV</option><option>LIÊU PX</option><option>TRẦN PX</option>
+            <option>MƯỜI PX</option><option>THÚY ANH SALE</option><option>LAM NHI KTV</option>
+            <option>NGHI PX</option><option>HUYỀN QL</option><option>BS KIÊNG</option>
+            <option>CHI KTV</option><option>HƯƠNG SALE</option><option>TRẦN KTV</option>
+            <option>C THỦY QL</option><option>THOẠI MY SALE</option><option>PHƯƠNG THỦY PX</option>
+            <option>TRANG PX M</option><option>VÂN SALE</option><option>NHƯ DN KTV</option>
+            <option>LOAN SALE</option><option>TƯỜNG VY KTV</option><option>TRINH NỮ KTV</option>
+          </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Gửi dữ liệu</button>
+        <button type="button" class="btn btn-logout" onclick="logout()">Đăng xuất</button>
+      </form>
+    </div>
+  </div>
+  
+  <div id="toast" class="toast"></div>
+  
+  <script>
+    const accounts = {
+      'dn@megakorea.vn': { password: 'tDjqk6Xoy@1l', branch: 'BMT' },
+      'qt@megakorea.vn': { password: 'c6^W3NK#9qCz', branch: 'QT' },
+      'dh@megakorea.vn': { password: 'N!sSUjv2#5rr', branch: 'DH' },
+      'hue@megakorea.vn': { password: '%3xmqd%ZaTid', branch: 'HUE' },
+      'cm@megakorea.vn': { password: '^UfUWyaNpt9N', branch: 'CM' },
+      'tnt@megakorea.vn': { password: 'jZx13^Zp!j9A', branch: 'TNT' },
+      'pt@megakorea.vn': { password: '6zzbY^vN%feS', branch: 'PT' },
+      'bmt@megakorea.vn': { password: 'cHp9Z&FaOoT%', branch: 'BMT' }
+    };
+    
+    const loginPage = document.getElementById('loginPage');
+    const formPage = document.getElementById('formPage');
+    const loginForm = document.getElementById('loginForm');
+    const dataForm = document.getElementById('dataForm');
+    const branchBadge = document.getElementById('branchBadge');
+    const loginError = document.getElementById('loginError');
+    const dateInput = document.getElementById('date');
+    
+    // Set today's date
+    const today = new Date();
+    dateInput.value = today.toLocaleDateString('vi-VN');
+    
+    // Check if already logged in
+    const savedBranch = localStorage.getItem('branch');
+    if (savedBranch) {
+      showFormPage(savedBranch);
+    }
+    
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+      
+      if (accounts[email] && accounts[email].password === password) {
+        const branch = accounts[email].branch;
+        localStorage.setItem('branch', branch);
+        loginError.classList.add('hidden');
+        showFormPage(branch);
+      } else {
+        loginError.textContent = 'Email hoặc mật khẩu không đúng';
+        loginError.classList.remove('hidden');
+      }
+    });
+    
+    function showFormPage(branch) {
+      loginPage.classList.add('hidden');
+      formPage.classList.remove('hidden');
+      branchBadge.textContent = branch;
+    }
+    
+    function logout() {
+      localStorage.removeItem('branch');
+      formPage.classList.add('hidden');
+      loginPage.classList.remove('hidden');
+      loginForm.reset();
+    }
+    
+    function showToast(message, type) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = 'toast ' + type + ' show';
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+    
+    dataForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const branch = localStorage.getItem('branch');
+      if (!branch) {
+        showToast('Vui lòng đăng nhập lại', 'error');
+        logout();
+        return;
+      }
+      
+      const data = {
+        branch: branch,
+        customerType: document.getElementById('customerType').value,
+        source: document.getElementById('source').value,
+        date: document.getElementById('date').value,
+        customerName: document.getElementById('customerName').value,
+        phone: document.getElementById('phone').value,
+        serviceGroup: document.getElementById('serviceGroup').value,
+        serviceDetail: document.getElementById('serviceDetail').value,
+        note: document.getElementById('note').value,
+        gift: document.getElementById('gift').value,
+        sessions: document.getElementById('sessions').value || '',
+        quantity: document.getElementById('quantity').value || '',
+        totalBill: document.getElementById('totalBill').value || '',
+        transfer: document.getElementById('transfer').value || '',
+        card: document.getElementById('card').value || '',
+        debt: document.getElementById('debt').value || '',
+        totalReceived: document.getElementById('totalReceived').value || '',
+        staff: document.getElementById('staff').value
+      };
+      
+      formPage.classList.add('loading');
+      
+      try {
+        const response = await fetch('https://dhsyccqor.datadex.vn/webhook-test/revenue', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
         });
-
-        function showMessage(message, type) {
-            messageDiv.textContent = message;
-            messageDiv.className = 'message ' + type;
-            messageDiv.style.display = 'block';
-
-            if (type === 'success') {
-                setTimeout(() => {
-                    messageDiv.style.display = 'none';
-                }, 4000);
-            }
+        
+        if (response.ok) {
+          showToast('Gửi dữ liệu thành công!', 'success');
+          // Reset form but keep date and branch
+          const currentDate = document.getElementById('date').value;
+          dataForm.reset();
+          document.getElementById('date').value = currentDate;
+        } else {
+          throw new Error('Server error');
         }
-
-        function isValidUrl(string) {
-            try {
-                new URL(string);
-                return true;
-            } catch (_) {
-                return false;
-            }
-        }
-    </script>
+      } catch (error) {
+        showToast('Lỗi khi gửi dữ liệu. Vui lòng thử lại.', 'error');
+      }
+      
+      formPage.classList.remove('loading');
+    });
+  </script>
 </body>
 </html>
